@@ -1,2 +1,2 @@
 # Programming-Notes
-C &amp; C++ Notes
+Java Language Notes
