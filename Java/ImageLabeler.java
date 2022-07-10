@@ -14,7 +14,7 @@ import java.lang.*;
 import java.io.*;
 
 /* Name of the class has to be "Main" only if the class is public. */
-class ImageLabeler
+class Main
 {
 	public static void main (String[] args) throws java.lang.Exception
 	{
@@ -32,33 +32,26 @@ class ImageLabeler
                 int ele = sc.nextInt();
                 arr[ind] = ele;
             }
-            
-            
-            double[][] dp = new double[n+1][m+1];
-            for(int i = 0; i <= n; i++){
-                dp[i][0] = 0;
-            }
-            for(int j = 0; j <= m; j++){
-                dp[0][j] = 0;
-            }
 
-
-            System.out.println("Arr: " + Arrays.toString(arr));
-            double res = getMax(arr, n, m, dp);
+            // System.out.println("Arr: " + Arrays.toString(arr));
+            Arrays.sort(arr);
+            double res = getMax(arr, n, m);
             System.out.println("Case #" + t + ": " + res);
         }
-        
-        // System.out.println("Arr: " + Arrays.toString(arr));
 	}
 	
-	public static double getMax(int[] wt, int n, int w, double[][] dp){
+	public static double getMax(int[] arr, int n, int m){
         double res = 0;
-        for(int i = 1; i <= n; i++){
-            for(int j = 1; j <= w; j++){
-                dp[i][j] = (wt[i - 1] + dp[i-1][j-1])/2.0;
-                res = Math.max(res, dp[i][j]);
-            }
+        if(m == 1)
+            return res = n%2 == 0 ? (arr[n/2-1]+arr[n/2])/2 : arr[n/2];
+        for(int i = n-1; i <= n-m+1; i++){
+            res += arr[i];
         }
+        int remaining = n-m+1;
+        if(remaining%2 != 0)
+            res += arr[remaining/2];
+        else
+            res += (arr[remaining/2 - 1] + arr[remaining/2])/2.0;
 	    return res;
 	}
 }
