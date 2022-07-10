@@ -14,7 +14,7 @@ import java.lang.*;
 import java.io.*;
 
 /* Name of the class has to be "Main" only if the class is public. */
-class Main
+class ImageLabeler
 {
 	public static void main (String[] args) throws java.lang.Exception
 	{
@@ -24,7 +24,7 @@ class Main
 		
 		for(int t = 1; t <= test; t++)
         {
-            // Read an int value
+            // Read an long value
             int n = sc.nextInt();
             int m = sc.nextInt();
             int[] arr = new int[n];
@@ -43,13 +43,13 @@ class Main
 	public static double getMax(int[] arr, int n, int m){
         double res = 0;
         if(m == 1)
-            return res = n%2 == 0 ? (arr[n/2-1]+arr[n/2])/2 : arr[n/2];
-        for(int i = n-1; i <= n-m+1; i++){
+            return res = n%2 == 0 ? (arr[n/2-1]+arr[n/2])/2.0 : arr[n/2]/1.0;
+        for(int i = n-1; i >= n-m+1; i--){
             res += arr[i];
         }
         int remaining = n-m+1;
         if(remaining%2 != 0)
-            res += arr[remaining/2];
+            res += arr[remaining/2]/1.0;
         else
             res += (arr[remaining/2 - 1] + arr[remaining/2])/2.0;
 	    return res;
