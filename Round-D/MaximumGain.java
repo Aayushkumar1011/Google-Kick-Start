@@ -15,8 +15,7 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-/* Name of the class has to be "Main" only if the class is public. */
-class Main
+class MaximumGain
 {
     public static int ans = 0;
 	public static void main (String[] args) throws java.lang.Exception
@@ -56,31 +55,26 @@ class Main
             // System.out.println("Case #" + ": " + t + "- B: " + Arrays.toString(arr2));
             Arrays.sort(arr1);
             Arrays.sort(arr2);
-            int res = getMax(arr1, arr2, n, m, k, dp);
+            int res = getMax(arr1, arr2, 0, n, 0, m, k, dp);
             System.out.println("Case #" + t + ": " + res);
         }
         
         // System.out.println("Arr: " + Arrays.toString(arr));
 	}
 
-    public static int getMax(int[] arr1, int[] arr2, int n, int m, int k, int[][] dp){
-        if(n < 0 && m < 0)
-            return 0;
+    public static int getMax(int[] arr1, int[] arr2, int s1, int n, int s2, int m, int k, int[][] dp){
         if(k <= 0)
             return 0;
-        if(n < 0 && m >= 0)
-            Math.max(ans,
-                ans + arr2[m-1] + getMax(arr1, arr2, n, m-1, k-1, dp));
-        if(m < 0 && n >= 0)
-            return Math.max(ans,
-                ans + arr1[n-1] + getMax(arr1, arr2, n-1, m, k-1, dp));
-        
-        if(arr1[n-1] > arr2[m-1])
-            return Math.max(ans,
-                ans + arr1[n-1] + getMax(arr1, arr2, n-1, m, k-1, dp));
-        else 
-            return Math.max(ans,
-                ans + arr2[m-1] + getMax(arr1, arr2, n, m-1, k-1, dp));
+        if((s1 > n-1 || s2 > m-1) || (n < 0 && m < 0))
+            return Integer.MIN_VALUE;
+        return ans = 
+            Math.max(arr1[s1] + getMax(arr1, arr2, s1+1, n, s2, m, k-1, dp),
+                Math.max(arr1[n-1] + getMax(arr1, arr2, s1, n-1, s2, m, k-1, dp),
+                    Math.max(arr2[s2] + getMax(arr1, arr2, s1, n, s2+1, m, k-1, dp),
+                             arr2[m-1] + getMax(arr1, arr2, s1, n, s2, m-1, k-1, dp)
+                            )
+                        )
+                    ); 
 
     }
 }
