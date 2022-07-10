@@ -66,7 +66,7 @@ class MaximumGain
         if(k <= 0)
             return 0;
         if((s1 > n-1 || s2 > m-1) || (n < 0 && m < 0))
-            return Integer.MIN_VALUE;
+            return 0;
         return ans = 
             Math.max(arr1[s1] + getMax(arr1, arr2, s1+1, n, s2, m, k-1, dp),
                 Math.max(arr1[n-1] + getMax(arr1, arr2, s1, n-1, s2, m, k-1, dp),
