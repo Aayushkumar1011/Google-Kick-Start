@@ -17,8 +17,7 @@ import java.io.*;
 
 class MaximumGain
 {
-    public static int ans = 0;
-	public static void main (String[] args) throws java.lang.Exception
+    public static void main (String[] args) throws java.lang.Exception
 	{
 		// your code goes here
 		Scanner sc = new Scanner(System.in);
@@ -49,32 +48,29 @@ class MaximumGain
             for(int j = 0; j <= k; j++){
                 dp[0][j] = 0;
             }
-
-
-            // System.out.println("Case #" + ": " + t + "- A: " + Arrays.toString(arr1));
-            // System.out.println("Case #" + ": " + t + "- B: " + Arrays.toString(arr2));
-            Arrays.sort(arr1);
-            Arrays.sort(arr2);
             int res = getMax(arr1, arr2, 0, n, 0, m, k, dp);
             System.out.println("Case #" + t + ": " + res);
         }
-        
-        // System.out.println("Arr: " + Arrays.toString(arr));
 	}
 
     public static int getMax(int[] arr1, int[] arr2, int s1, int n, int s2, int m, int k, int[][] dp){
         if(k <= 0)
             return 0;
-        if((s1 > n-1 || s2 > m-1) || (n < 0 || m < 0))
+        if(s1 > n-1 && s2 > m-1)
             return 0;
-        return ans = 
-            Math.max(arr1[s1] + getMax(arr1, arr2, s1+1, n, s2, m, k-1, dp),
-                Math.max(arr1[n-1] + getMax(arr1, arr2, s1, n-1, s2, m, k-1, dp),
-                    Math.max(arr2[s2] + getMax(arr1, arr2, s1, n, s2+1, m, k-1, dp),
-                             arr2[m-1] + getMax(arr1, arr2, s1, n, s2, m-1, k-1, dp)
-                            )
-                        )
-                    ); 
+		int ans1 = 0;
+		int ans2 = 0;
+		if(s1 < n){
+        	ans1 = Math.max(arr1[s1] + getMax(arr1, arr2, s1+1, n, s2, m, k-1, dp),
+                	arr1[n-1] + getMax(arr1, arr2, s1, n-1, s2, m, k-1, dp)); 
 
+		}
+
+		if(s2 < m){
+			ans2 = Math.max(arr2[s2] + getMax(arr1, arr2, s1, n, s2+1, m, k-1, dp),
+						arr2[m-1] + getMax(arr1, arr2, s1, n, s2, m-1, k-1, dp)); 
+
+		}
+		return Math.max(ans1, ans2);
     }
 }
